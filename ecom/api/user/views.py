@@ -44,5 +44,30 @@ def signin(request):
         else:
             return JsonResponse({"error":"Invalid Password"})
     except username.DoesNotExist:
-        pass
+        return JsonResponse("error":"Invalid Email")
+
+def signout(request,id):
     
+
+    userModel = get_user_model()
+    try:
+        user = userModel.objects.get(pk=id)
+        user.session_token ="0"
+        user.save()
+        
+    except userModel.DoesNotExist:
+        return JsonResponse("error":"Invalid User Id")
+    logout(request)
+    return JsonResponse("success":"Logout Successfully")
+
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes_by_action ={"create":[AllowAny]}
+    queryset = CustomUser.objects.all().order_by('id')
+    serializer_class = UserSerializer
+
+    def get_permission(self):
+        try:
+            return [permission() for permission in self.permission_classes_by_action[self.action]]
+        except KeyError:
+            
+            return [permission() for permission in self.permission_classes]
