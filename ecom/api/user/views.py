@@ -1,11 +1,13 @@
 import random
+from rest_framework.permissions import AllowAny
 from rest_framework import viewsets
 from .serializers import UserSerializer
 from .models import CustomUser
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
-from django.views.decorator.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login,logout
+import re
 # Create your views here.
 def generate_session_token(length=10):
     return ''.join(random.SystemRandom().choice([chr(i) for i in range(97,123)] + [str(i) for i in range(10)]) for _ in range(length) ) 
@@ -44,7 +46,7 @@ def signin(request):
         else:
             return JsonResponse({"error":"Invalid Password"})
     except username.DoesNotExist:
-        return JsonResponse("error":"Invalid Email")
+        return JsonResponse({"error":"Invalid Email"})
 
 def signout(request,id):
     
@@ -56,14 +58,15 @@ def signout(request,id):
         user.save()
         
     except userModel.DoesNotExist:
-        return JsonResponse("error":"Invalid User Id")
+        return JsonResponse({"error":"Invalid User Id"})
     logout(request)
-    return JsonResponse("success":"Logout Successfully")
+    return JsonResponse({"success":"Logout Successfully"})
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes_by_action ={"create":[AllowAny]}
-    queryset = CustomUser.objects.all().order_by('id')
     serializer_class = UserSerializer
+
+    queryset = CustomUser.objects.all().order_by('id')
 
     def get_permission(self):
         try:
