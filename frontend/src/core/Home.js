@@ -21,7 +21,7 @@ class Home extends Component {
             if(data.error){
                 this.setState({error: data.error});
             }
-            else(this.setState({products : data}))
+            else{this.setState({products : data})}
             
         });
     }
@@ -36,7 +36,7 @@ class Home extends Component {
                          {this.state.products.map((product,index)=>{
                              return (
                                  <div key={index} className="col-4 mb-4">
-                                     <Card/>
+                                     <Card product={product}/>
                                  </div>
                              )
                          })}
