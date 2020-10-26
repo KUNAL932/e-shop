@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import getProducts from "../core/helper/coreapicalls";
 import {API} from "../backend";
+import Base from "./Base";
+import "../style.css";
+import Card from "./Card";
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -25,14 +28,21 @@ class Home extends Component {
 
     render() { 
         return ( 
-            <div>
+            
+            
+                <Base title="Home Page" description="Welocome to E-commerce website">
                      {this.loadAllProducts()}
-
-                    {this.state.products.map((product,index) => (
-                        <li key={index}>{product.name}{product.description}</li>
-                    ))}
+                     <div className="row">
+                         {this.state.products.map((product,index)=>{
+                             return (
+                                 <div key={index} className="col-4 mb-4">
+                                     <Card/>
+                                 </div>
+                             )
+                         })}
+                     </div>
                
-            </div>
+                     </Base>
          );
     }
 }
