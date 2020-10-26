@@ -2,10 +2,18 @@ import React, { Component } from 'react';
 import getProducts from "../core/helper/coreapicalls";
 import {API} from "../backend";
 class Home extends Component {
-    state={
-        products :[],
+    constructor(props) {
+        super(props);
+        this.state = { 
+            products :[],
         error: false
+         }
+         this.loadAllProducts = this.loadAllProducts.bind(this);
     }
+    
+    // state={
+        
+    // }
 
     loadAllProducts =()=> {
         fetch(`${API}product`,{
@@ -18,25 +26,23 @@ class Home extends Component {
             this.setState({products : data});
         });
     }
+    componentDidMount() {
+        document.title = `You clicked ${this.state.products} times`;
+      }
+    
     render() { 
         return ( 
             <div>
-                
-            <button onClick={this.loadAllProducts}>Load Products</button>
-            {
-            // this.products.length > 0 && (
-                <ul>
-                    {this.state.products.map((product) => (
-                        <li key={product.id}>{product.name}</li>
+                     {this.loadAllProducts()}
+
+                    {this.state.products.map((product,index) => (
+                        <li key={index}>{product.name}{product.description}</li>
                     ))}
-                </ul>
-            // )
-            }
-            
-        
+               
             </div>
          );
     }
 }
  
 export default Home;
+
