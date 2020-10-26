@@ -9,27 +9,20 @@ class Home extends Component {
         error: false
          }
          this.loadAllProducts = this.loadAllProducts.bind(this);
+
     }
-    
-    // state={
-        
-    // }
 
     loadAllProducts =()=> {
-        fetch(`${API}product`,{
-            method:"GET"
-        })
-        .then(response =>{
-            return response.json();
-        })
+        getProducts()
         .then(data =>{
-            this.setState({products : data});
+            if(data.error){
+                this.setState({error: data.error});
+            }
+            else(this.setState({products : data}))
+            
         });
     }
-    componentDidMount() {
-        document.title = `You clicked ${this.state.products} times`;
-      }
-    
+
     render() { 
         return ( 
             <div>
