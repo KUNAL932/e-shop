@@ -1,7 +1,7 @@
 import React from 'react';
 const ImageHelper =({ product }) => {
-    const imageurl = product.image
-    // product ? product.image : `https://miro.medium.com/max/10944/0*q-LikG1uxPkgj_14`
+    const imageurl = product ? product.image : `https://miro.medium.com/max/10944/0*q-LikG1uxPkgj_14`
+    
 
     return (
         <div className="rounded border border-success p-2">
