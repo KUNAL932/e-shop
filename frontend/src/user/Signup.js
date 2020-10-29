@@ -6,10 +6,10 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            values : { }
+            values : {}
          }
-         this.handleChange = this.handleChange.bind(this);
-         this.componentDidMount = this.componentDidMount.bind(this);
+        //  this.handleChange = this.handleChange.bind(this);
+        //  this.componentDidMount = this.componentDidMount.bind(this);
     }
     
 
@@ -28,14 +28,12 @@ class Signup extends Component {
         this.setState({...this.state, values: {...this.state.values ,error: false, [name]: event.target.value },});
     };
 
-    onSubmit(event){
-        const {name} = this.state.values.name;
-        const {email} = this.state.values.email;
-        const {password} = this.state.values.password;
+    onSubmit=(event)=>{
+       
 
         event.preventDefault();
-        this.setState({...this.state,values:{...this.state.values,error: false}});
-        signup({name,email,password})
+        this.setState({...this.state,values:{...this.state.values,error: false}}); // correct upto here
+        signup(this.state.values.name,this.state.values.email,this.state.values.password)// problem lies here
         .then((data) => {
             console.log("DATA",data)
         })
@@ -86,9 +84,11 @@ class Signup extends Component {
             </div>
         )
     }
-    render() { 
-        
+    render() {             
+        const {name} = this.state.values;
         return ( 
+            
+
             <Base title="Welcome to E-commerce" description="Create Your Account From Here">
             {this.signUpForm()}
             <p className="text-white text-center">
