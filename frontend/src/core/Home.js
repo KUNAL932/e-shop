@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import getProducts from "../core/helper/coreapicalls";
-import {API} from "../backend";
+// import {API} from "../backend";
 import Base from "./Base";
 import "../style.css";
 import Card from "./Card";
