@@ -3,16 +3,18 @@ const { emptyCart } = require("../../core/helper/Carthelper");
 
 
 export const signup = (user) => {
-    return fetch(`${API}user`,{
+    return fetch(`${API}user/`,{
         method: "POST",
         headers: {
             Accept: "application/json",
-            "Content-Type":"application/json"
+            "Content-Type":"application/json",
         },
-        body : JSON.stringify(user)
+        body: JSON.stringify(user),
+        // body: user
+        
     })
-    .then((response)=>{
-        return response.json()
+    .then((response)=> {
+        return response.json();
     })
     .catch((err) => console.log(err))
 }
