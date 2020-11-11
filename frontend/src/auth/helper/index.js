@@ -20,21 +20,26 @@ export const signup = (user) => {
 }
 export const signin = (user) => {
     const formData = new FormData();
-    for(const name in user){
-        formData.append(name,user[name]);
+    const {email,password} = user;
+    formData.append('email',email)
+    formData.append('password',password)
+
+    for( var key of formData.keys()){
+        console.log(key)
     }
-    return fetch(`${API}user/login`,{
+    return fetch(`${API}user/login/`,{
         method:"POST",
         body: formData,
     })
     .then((response)=>{
+        console.log("Success",response)
         return response.json()
     })
     .catch((err)=> console.log(err))
 };
  
   
-export const authenticate = (data,next) => {
+export const authenticate = (data , next) => {
     if (typeof window !== undefined){
         localStorage.setItem("jwt",JSON.stringify(data));
         next();

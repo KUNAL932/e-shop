@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {BrowserRouter,Switch,Route} from "react-router-dom"
-// import { PrivateRoutes } from './auth/helper/PrivateRoutes';
+import { PrivateRoutes } from './auth/helper/PrivateRoutes';
 import Home from "./core/Home"
+import Signin from './user/Signin';
 import Signup from './user/Signup';
+import UserDashBoard from './user/UserDashBoard';
 
 class Routes extends Component {
     render() { 
@@ -10,8 +12,9 @@ class Routes extends Component {
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/signup" exact component={Signup}/>
+                <Route path="/signin" exact component={Signin}/>
 
-                {/* <PrivateRoutes path="/s"exact component={} /> */}
+                <PrivateRoutes path="/user/dashboard"exact component={UserDashBoard} />
             </Switch>
             </BrowserRouter> );
     }
