@@ -2,7 +2,7 @@ import React from 'react';
 import {Link,withRouter} from 'react-router-dom';
 
 const currentTab = (history,path) =>{
-    if(history.location.path === path){
+    if(history.location.pathname === path){
         return {color: "#2ecc72"};
     }else{
         return {color: "#FFFFFF"};
