@@ -32,11 +32,11 @@ const Signin = () => {
             
             
         if(data.token){
-            let sessionToken = data.token;
-            authenticate(sessionToken,()=>{
+            // let sessionToken = data.token;
+            authenticate(data,()=>{
             setValues({
                 ...values,
-                didRedirect: true})
+                didRedirect: true,})
             console.log("TOKKEN ADDED");
             
                 })
