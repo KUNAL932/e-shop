@@ -8,6 +8,8 @@ const Card = ({
     product,
     addtocart = true,
     removefromcart = false,
+    reload = undefined,
+    setReload = (f) => f,
 }) => {
     const [redirect,setRedirect] = useState(false)
     const cartTitle = product ? product.name : "default "
@@ -31,7 +33,7 @@ const Card = ({
 
     const showAddToCart = addToCart => {
         return (
-            addToCart && (<button onClick={addToCart}
+            addtocart && (<button onClick={addToCart}
             className="btn btn-block btn-outline-success mt-2 mb-2"
             > Add to Cart
 
@@ -43,6 +45,7 @@ const Card = ({
         return (
             removefromcart && (<button onClick={() => {
                 removeItemFromCart(product.id);
+                setReload(!reload);
                 console.log("Removed from cart")
             }}
             className="btn btn-block btn-outline-danger mt-2 mb-2"
